@@ -63,17 +63,61 @@ if __name__ == "__main__":
 
 
 
-GITHUB API LINK 匯總：
+### 4.**GITHUB API LINK 匯總**：
 
-| API 類型 | Link（完整連結） | Description（用途） |
+以下根據你提供的 JSON 整理成繁體中文表格。  
+其中 `{...}` 是 **URI 模板佔位符**，實際呼叫時要替換成真實值。
+
+| 欄位 | Direct Link | 用途 / Description (Used for) |
 |---|---|---|
-| REST API | https://docs.github.com/zh/rest?apiVersion=2022-11-28 | 用於標準 HTTP CRUD：倉庫、Issue、PR、使用者、組織、Actions、Releases 等。 |
-| GraphQL API | https://docs.github.com/zh/graphql | 用於精確查詢複雜／嵌套資料；單一端點，一次請求取得多個關聯資源。 |
-| Webhooks | https://docs.github.com/zh/webhooks | 用於訂閱 GitHub 事件；事件發生時主動推送 HTTP POST 到你的伺服器。 |
-| Search API（REST） | https://docs.github.com/zh/rest/search/search?apiVersion=2022-11-28#search-repositories | 用於搜尋倉庫、程式碼、Issue、PR、使用者、主題等；例如搜尋倉庫介面。 |
-| Authentication | https://docs.github.com/zh/authentication | 用於 PAT、OAuth App、GitHub App 認證；認證後可提升速率限制與存取權限。 |
-| Rate Limits | https://docs.github.com/zh/rest/using-the-rest-api/rate-limits-for-the-rest-api | 用於檢視 REST API 速率限制、配額與重設時間。 |
+| `current_user_url` | `https://api.github.com/user` | 取得目前認證使用者的資料。 |
+| `current_user_authorizations_html_url` | `https://github.com/settings/connections/applications{/client_id}` | 在 GitHub 網頁上管理目前使用者已授權的 OAuth App；可帶 `client_id`。 |
+| `authorizations_url` | `https://api.github.com/authorizations` | 管理目前使用者的 OAuth 授權資訊。 |
+| `code_search_url` | `https://api.github.com/search/code?q={query}{&page,per_page,sort,order}` | 搜尋程式碼；`{query}` 為搜尋關鍵字。 |
+| `commit_search_url` | `https://api.github.com/search/commits?q={query}{&page,per_page,sort,order}` | 搜尋提交記錄。 |
+| `emails_url` | `https://api.github.com/user/emails` | 取得目前認證使用者的電子郵件地址。 |
+| `emojis_url` | `https://api.github.com/emojis` | 取得 GitHub 所有 emoji 列表。 |
+| `events_url` | `https://api.github.com/events` | 取得 GitHub 公開事件時間軸。 |
+| `feeds_url` | `https://api.github.com/feeds` | 取得目前使用者可用的 feeds 列表，例如 Atom feeds。 |
+| `followers_url` | `https://api.github.com/user/followers` | 取得目前使用者的追蹤者列表。 |
+| `following_url` | `https://api.github.com/user/following{/target}` | 取得目前使用者正在追蹤的人；`{/target}` 可指定某個使用者檢查是否被追蹤。 |
+| `gists_url` | `https://api.github.com/gists{/gist_id}` | 取得或管理 Gists；`{/gist_id}` 指定某個 Gist。 |
+| `hub_url` | `https://api.github.com/hub` | GitHub PubSubHubbub hub 訂閱端點，用於較舊的事件即時推送機制。 |
+| `issue_search_url` | `https://api.github.com/search/issues?q={query}{&page,per_page,sort,order}` | 搜尋 Issue 和 Pull Request。 |
+| `issues_url` | `https://api.github.com/issues` | 取得目前認證使用者相關的 Issue，通常跨儲存庫。 |
+| `keys_url` | `https://api.github.com/user/keys` | 取得目前使用者的 SSH keys。 |
+| `label_search_url` | `https://api.github.com/search/labels?q={query}&repository_id={repository_id}{&page,per_page}` | 搜尋標籤；需要指定 `repository_id`。 |
+| `notifications_url` | `https://api.github.com/notifications` | 取得目前使用者的通知。 |
+| `organization_url` | `https://api.github.com/orgs/{org}` | 取得指定組織的資訊；`{org}` 為組織名稱。 |
+| `organization_repositories_url` | `https://api.github.com/orgs/{org}/repos{?type,page,per_page,sort}` | 取得指定組織的儲存庫列表。 |
+| `organization_teams_url` | `https://api.github.com/orgs/{org}/teams` | 取得指定組織的團隊列表。 |
+| `public_gists_url` | `https://api.github.com/gists/public` | 取得公開 Gists 列表。 |
+| `rate_limit_url` | `https://api.github.com/rate_limit` | 查詢目前 API 速率限制狀態。 |
+| `repository_url` | `https://api.github.com/repos/{owner}/{repo}` | 取得或管理指定儲存庫；`{owner}` 為擁有者，`{repo}` 為儲存庫名稱。 |
+| `repository_search_url` | `https://api.github.com/search/repositories?q={query}{&page,per_page,sort,order}` | 搜尋儲存庫。 |
+| `current_user_repositories_url` | `https://api.github.com/user/repos{?type,page,per_page,sort}` | 取得目前認證使用者的儲存庫列表。 |
+| `starred_url` | `https://api.github.com/user/starred{/owner}{/repo}` | 取得目前使用者 Star 的儲存庫；可帶 `owner/repo` 檢查某儲存庫是否已 Star。 |
+| `starred_gists_url` | `https://api.github.com/gists/starred` | 取得目前使用者 Star 的 Gists。 |
+| `topic_search_url` | `https://api.github.com/search/topics?q={query}{&page,per_page}` | 搜尋 GitHub Topics。 |
+| `user_url` | `https://api.github.com/users/{user}` | 取得指定使用者的公開資訊；`{user}` 為使用者名稱。 |
+| `user_organizations_url` | `https://api.github.com/user/orgs` | 取得目前認證使用者所屬的組織。 |
+| `user_repositories_url` | `https://api.github.com/users/{user}/repos{?type,page,per_page,sort}` | 取得指定使用者的儲存庫列表。 |
+| `user_search_url` | `https://api.github.com/search/users?q={query}{&page,per_page,sort,order}` | 搜尋使用者。 |
 
-備註：將連結中的 `/zh/` 改成 `/en/` 就是英文版。例如：  
-https://docs.github.com/en/rest?apiVersion=2022-11-28
+### 常見佔位符說明
 
+| 佔位符 | 含義 |
+|---|---|
+| `{query}` | 搜尋關鍵字 |
+| `{owner}` | 儲存庫擁有者 |
+| `{repo}` | 儲存庫名稱 |
+| `{org}` | 組織名稱 |
+| `{user}` | 使用者名稱 |
+| `{gist_id}` | Gist ID |
+| `{target}` | 目標使用者名稱 |
+| `{client_id}` | OAuth App 的 Client ID |
+| `{repository_id}` | 儲存庫 ID |
+| `{?type,page,per_page,sort}` | 可選查詢參數，例如 `?type=all&page=1` |
+| `{&page,per_page,sort,order}` | 接在已有 `?q=...` 後面的可選查詢參數，例如 `&page=1&per_page=10` |
+
+這些 URL 都來自 GitHub REST API 根端點：`https://api.github.com/`。部分介面需要認證，使用 GitHub Token 可提高速率限制。
