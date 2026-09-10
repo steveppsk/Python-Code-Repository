@@ -63,16 +63,17 @@ if __name__ == "__main__":
 
 
 
-| API 类型 | Link (full link) | Description (Used for) |
+GITHUB API LINK 匯總：
+
+| API 類型 | Link（完整連結） | Description（用途） |
 |---|---|---|
-| REST API | https://docs.github.com/zh/rest?apiVersion=2022-11-28 | 用于标准 HTTP CRUD：仓库、Issue、PR、用户、组织、Actions、Releases 等。 |
-| GraphQL API | https://docs.github.com/zh/graphql | 用于精确查询复杂/嵌套数据；单一端点，一次请求取多个关联资源。 |
-| Webhooks | https://docs.github.com/zh/webhooks | 用于订阅 GitHub 事件；事件发生时主动推送 HTTP POST 到你的服务器。 |
-| Search API (REST) | https://docs.github.com/zh/rest/search/search?apiVersion=2022-11-28#search-repositories | 用于搜索仓库、代码、Issue、PR、用户、主题等；例如搜索仓库接口。 |
-| Authentication | https://docs.github.com/zh/authentication | 用于 PAT、OAuth App、GitHub App 认证；认证后提升速率限制和访问权限。 |
-| Rate Limits | https://docs.github.com/zh/rest/using-the-rest-api/rate-limits-for-the-rest-api | 用于查看 REST API 速率限制、配额和重置时间。 |
+| REST API | https://docs.github.com/zh/rest?apiVersion=2022-11-28 | 用於標準 HTTP CRUD：倉庫、Issue、PR、使用者、組織、Actions、Releases 等。 |
+| GraphQL API | https://docs.github.com/zh/graphql | 用於精確查詢複雜／嵌套資料；單一端點，一次請求取得多個關聯資源。 |
+| Webhooks | https://docs.github.com/zh/webhooks | 用於訂閱 GitHub 事件；事件發生時主動推送 HTTP POST 到你的伺服器。 |
+| Search API（REST） | https://docs.github.com/zh/rest/search/search?apiVersion=2022-11-28#search-repositories | 用於搜尋倉庫、程式碼、Issue、PR、使用者、主題等；例如搜尋倉庫介面。 |
+| Authentication | https://docs.github.com/zh/authentication | 用於 PAT、OAuth App、GitHub App 認證；認證後可提升速率限制與存取權限。 |
+| Rate Limits | https://docs.github.com/zh/rest/using-the-rest-api/rate-limits-for-the-rest-api | 用於檢視 REST API 速率限制、配額與重設時間。 |
 
-
-备注：把链接里的 `/zh/` 改成 `/en/` 就是英文版。例如：  
+備註：將連結中的 `/zh/` 改成 `/en/` 就是英文版。例如：  
 https://docs.github.com/en/rest?apiVersion=2022-11-28
 
