@@ -65,3 +65,122 @@ curl "https://hn.algolia.com/api/v1/search?query=python&tags=story&numericFilter
 *   **付費替代方案**：如 **Apify** 提供現成的爬蟲 Actor，可直接輸出結構化資料，適合需要批量處理或自訂欄位的場景。
 
 總結來說，**官方 Firebase API** 適合獲取即時列表，而 **Algolia API** 則是你需要搜尋和分析時的首選。兩者結合使用，就能滿足絕大多數與 Hacker News 互動的需求。
+
+
+### 如何使用 API (PYTHON CODE)
+
+下面是一個用 Python 查詢 **Hacker News 過去 10 天內關於 AI 開發的熱門新聞** 的完整範例，使用 **Algolia HN Search API**（因為它支援全文搜尋、時間過濾和熱度排序）。
+
+```python
+import requests
+import time
+from datetime import datetime, timedelta
+
+def search_hn_ai_news(days=10, limit=10):
+    """
+    查詢 Hacker News 過去 N 天內關於 AI 開發的熱門新聞
+    使用 Algolia HN Search API
+    """
+    url = 'https://hn.algolia.com/api/v1/search'
+    
+    # 計算 N 天前的 Unix timestamp
+    since = int((datetime.now() - timedelta(days=days)).timestamp())
+    
+    params = {
+        'query': 'AI development',
+        'tags': 'story',
+        'numericFilters': f'created_at_i>{since},points>10',
+        'hitsPerPage': limit,
+    }
+    
+    try:
+        response = requests.get(url, params=params, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        
+        print(f"找到 {data['nbHits']} 篇符合條件的文章")
+        print(f"查詢範圍：過去 {days} 天\n")
+        print("=" * 60)
+        
+        for i, hit in enumerate(data['hits'], 1):
+            title = hit.get('title') or '(無標題)'
+            points = hit.get('points', 0)
+            comments = hit.get('num_comments', 0)
+            author = hit.get('author', 'unknown')
+            created = datetime.fromtimestamp(hit['created_at_i']).strftime('%Y-%m-%d %H:%M')
+            
+            # HN 討論頁連結
+            hn_url = f"https://news.ycombinator.com/item?id={hit['objectID']}"
+            # 原始文章連結
+            article_url = hit.get('url') or hn_url
+            
+            print(f"#{i} {title}")
+            print(f"    分數: {points}  |  留言: {comments}  |  作者: {author}")
+            print(f"    時間: {created}")
+            print(f"    原文: {article_url}")
+            print(f"    討論: {hn_url}")
+            print("-" * 60)
+            
+    except requests.exceptions.RequestException as e:
+        print(f"請求失敗: {e}")
+
+
+if __name__ == "__main__":
+    search_hn_ai_news(days=10, limit=10)
+```
+
+### 🔍 重點說明
+
+| 參數 | 作用 |
+|---|---|
+| `query` | 搜尋關鍵字，例如 `AI development`、`LLM`、`machine learning` |
+| `tags=story` | 只搜尋故事（排除留言、招聘等） |
+| `numericFilters=created_at_i>{since}` | 只取過去 N 天的文章 |
+| `numericFilters=points>10` | 過濾掉太冷門的文章（可調整或移除） |
+| `hitsPerPage` | 回傳筆數 |
+
+### 🚀 進階變化
+
+**1. 想搜尋多個關鍵字（例如 AI 或 LLM 或 machine learning）：**
+
+Algolia 的 `query` 不支援 OR，但可以用 `tags` 或改成多次請求：
+
+```python
+keywords = ['AI', 'LLM', 'machine learning']
+all_hits = []
+for kw in keywords:
+    params['query'] = kw
+    r = requests.get(url, params=params, timeout=10).json()
+    all_hits.extend(r['hits'])
+
+# 用 objectID 去重，再按分數排序
+unique = {h['objectID']: h for h in all_hits}
+top10 = sorted(unique.values(), key=lambda x: x.get('points', 0), reverse=True)[:10]
+```
+
+**2. 想按時間排序而非熱度：**
+
+把端點改成 `https://hn.algolia.com/api/v1/search_by_date`。
+
+**3. 想抓完整文章內容：**
+
+先取得 `objectID`，再呼叫：
+
+```python
+detail = requests.get(f"https://hn.algolia.com/api/v1/items/{objectID}").json()
+```
+
+### 📌 與你原本 GitHub 範例的差異
+
+| 項目 | GitHub API | HN Algolia API |
+|---|---|---|
+| 認證 | 建議用 Token | 不需要 |
+| 搜尋 | `q=` 關鍵字 | `query=` 關鍵字 |
+| 時間過濾 | 用 `created:>日期` | 用 `numericFilters=created_at_i>timestamp` |
+| 熱度排序 | `sort=stars` | 預設按相關性，可用 `points` 過濾 |
+| 回傳格式 | `data['items']` | `data['hits']` |
+
+這樣就能直接跑出「過去 10 天 HN 上關於 AI 開發的熱門討論」清單了。
+
+
+
