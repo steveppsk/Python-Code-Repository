@@ -60,3 +60,19 @@ if __name__ == "__main__":
 
 ## 3. 總結
 當執行這支程式時，它會自動向 GitHub 搜尋名稱或內容包含 "requests" 的專案，按照星星數由高到低排序，最終在終端機畫面上印出總共找到的結果數量，以及最熱門前 5 大專案的詳細資訊。這是一個非常標準且實用的串接 RESTful API 的範例程式碼。
+
+
+
+| API 类型 | Link (full link) | Description (Used for) |
+|---|---|---|
+| REST API | https://docs.github.com/zh/rest?apiVersion=2022-11-28 | 用于标准 HTTP CRUD：仓库、Issue、PR、用户、组织、Actions、Releases 等。 |
+| GraphQL API | https://docs.github.com/zh/graphql | 用于精确查询复杂/嵌套数据；单一端点，一次请求取多个关联资源。 |
+| Webhooks | https://docs.github.com/zh/webhooks | 用于订阅 GitHub 事件；事件发生时主动推送 HTTP POST 到你的服务器。 |
+| Search API (REST) | https://docs.github.com/zh/rest/search/search?apiVersion=2022-11-28#search-repositories | 用于搜索仓库、代码、Issue、PR、用户、主题等；例如搜索仓库接口。 |
+| Authentication | https://docs.github.com/zh/authentication | 用于 PAT、OAuth App、GitHub App 认证；认证后提升速率限制和访问权限。 |
+| Rate Limits | https://docs.github.com/zh/rest/using-the-rest-api/rate-limits-for-the-rest-api | 用于查看 REST API 速率限制、配额和重置时间。 |
+
+
+备注：把链接里的 `/zh/` 改成 `/en/` 就是英文版。例如：  
+https://docs.github.com/en/rest?apiVersion=2022-11-28
+
