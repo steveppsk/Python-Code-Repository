@@ -4,7 +4,7 @@
 
 | 數據集名稱 | 描述 / 用途 | JSON 連結 |
 |-----|-----|---|
-| ****醫院/機構/專科門診診所/家庭醫學診所目錄**** | 提供醫管局轄下各醫院聯網的醫院、機構、專科門診及家庭醫學診所清單。 | `https://www.ha.org.hk/opendata/facility-hosp.json` |
+|  **醫院/機構/專科門診診所/家庭醫學診所目錄**  | 提供醫管局轄下各醫院聯網的醫院、機構、專科門診及家庭醫學診所清單。 | `https://www.ha.org.hk/opendata/facility-hosp.json` |
 | **普通科門診診所目錄** | 提供醫管局轄下普通科門診診所的清單。 | `https://www.ha.org.hk/opendata/facility-gop.json` |
 | **專科門診診所目錄** | 提供醫管局轄下專科門診診所的清單。 | `https://www.ha.org.hk/opendata/facility-sop.json` |
 | **急症室等候時間** | 提供各公立醫院急症室的實時預計等候時間，每 15 分鐘更新。 | `https://www.ha.org.hk/opendata/aed/aedwtdata-tc.json` |
